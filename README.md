@@ -46,6 +46,10 @@ The boxcutter templates currently support the following desktop virtualization s
 * `parallels-iso` - [Parallels](http://www.parallels.com/products/desktop/whats-new/) desktop virtualization (Requires the Pro Edition - Desktop edition won't work)
 * `virtualbox-iso` - [VirtualBox](https://www.virtualbox.org/wiki/Downloads) desktop virtualization
 * `vmware-iso` - [VMware Fusion](https://www.vmware.com/products/fusion) or [VMware Workstation](https://www.vmware.com/products/workstation) desktop virtualization
+* `hyperv-iso` - [Hyper-V](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/) in Windows 10 Anniversary Update or Windows Server 2016
+
+> Note: hyperv-iso has a current bug with boot_command handling. Don't merge this as-is until its fixed. It will fail on the "Download debconf preconfiguration" step.
+> Right now there's a temporary change to debian.json to avoid it but it will break Debian 7.
 
 ## Building the Vagrant boxes with the box script
 
