@@ -73,7 +73,8 @@ Feb  1 06:42:11 vagrant systemd[1]: Unit hyperv-daemons.hv-kvp-daemon.service en
 So I tried starting them, and it worked:
 ```
 vagrant@vagrant:/var/log$ sudo systemctl start *hyper*
-vagrant@vagrant:/var/log$ systemctl status *hyper*                                                        ● hyperv-daemons.hv-fcopy-daemon.service - Hyper-V file copy service (FCOPY) daemon
+vagrant@vagrant:/var/log$ systemctl status *hyper*                                                        
+● hyperv-daemons.hv-fcopy-daemon.service - Hyper-V file copy service (FCOPY) daemon
    Loaded: loaded (/lib/systemd/system/hyperv-daemons.hv-fcopy-daemon.service; enabled)
    Active: active (running) since Wed 2017-02-01 07:00:31 UTC; 15s ago
  Main PID: 1034 (hv_fcopy_daemon)
