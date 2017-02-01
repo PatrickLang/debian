@@ -68,3 +68,30 @@ Feb  1 06:42:11 vagrant systemd[1]: Unit hyperv-daemons.hv-fcopy-daemon.service 
 Feb  1 06:42:11 vagrant systemd[1]: hyperv-daemons.hv-kvp-daemon.service: main process exited, code=exited, status=1/FAILURE
 Feb  1 06:42:11 vagrant systemd[1]: Unit hyperv-daemons.hv-kvp-daemon.service entered failed state.
 ```
+
+
+So I tried starting them, and it worked:
+```
+vagrant@vagrant:/var/log$ sudo systemctl start *hyper*
+vagrant@vagrant:/var/log$ systemctl status *hyper*                                                        ● hyperv-daemons.hv-fcopy-daemon.service - Hyper-V file copy service (FCOPY) daemon
+   Loaded: loaded (/lib/systemd/system/hyperv-daemons.hv-fcopy-daemon.service; enabled)
+   Active: active (running) since Wed 2017-02-01 07:00:31 UTC; 15s ago
+ Main PID: 1034 (hv_fcopy_daemon)
+   CGroup: /system.slice/hyperv-daemons.hv-fcopy-daemon.service
+           └─1034 /usr/sbin/hv_fcopy_daemon -n
+
+● hyperv-daemons.hv-vss-daemon.service - Hyper-V volume shadow copy service (VSS) daemon
+   Loaded: loaded (/lib/systemd/system/hyperv-daemons.hv-vss-daemon.service; enabled)
+   Active: active (running) since Wed 2017-02-01 07:00:31 UTC; 15s ago
+ Main PID: 1035 (hv_vss_daemon)
+   CGroup: /system.slice/hyperv-daemons.hv-vss-daemon.service
+           └─1035 /usr/sbin/hv_vss_daemon -n
+
+● hyperv-daemons.hv-kvp-daemon.service - Hyper-V key-value pair (KVP) daemon
+   Loaded: loaded (/lib/systemd/system/hyperv-daemons.hv-kvp-daemon.service; enabled)
+   Active: active (running) since Wed 2017-02-01 07:00:31 UTC; 15s ago
+ Main PID: 1036 (hv_kvp_daemon)
+   CGroup: /system.slice/hyperv-daemons.hv-kvp-daemon.service
+           └─1036 /usr/sbin/hv_kvp_daemon -n
+
+```
