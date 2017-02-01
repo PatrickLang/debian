@@ -96,3 +96,20 @@ vagrant@vagrant:/var/log$ systemctl status *hyper*
            └─1036 /usr/sbin/hv_kvp_daemon -n
 
 ```
+
+But Packer was still waiting for an IP >5 minutes later.
+
+Digging into Hyper-V status:
+```
+PS> (get-vm -Name debian8 | Get-VMNetworkAdapter)
+
+Name            IsManagementOs VMName  SwitchName MacAddress   Status                      IPAddresses
+----            -------------- ------  ---------- ----------   ------                      -----------
+Network Adapter False          debian8 Ethernet   00155D7E8011 {Degraded, ProtocolVersion} {}
+```
+
+So, let's wait:
+
+```powershell
+measure-command {while ( (get-vm -Name debian8 | Get-VMNetworkAdapter).IPAddresses.Count -eq 0 ) { Write-Host "waiting" ; Start-Sleep 5 } }
+```
