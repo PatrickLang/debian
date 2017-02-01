@@ -113,3 +113,31 @@ So, let's wait:
 ```powershell
 measure-command {while ( (get-vm -Name debian8 | Get-VMNetworkAdapter).IPAddresses.Count -eq 0 ) { Write-Host "waiting" ; Start-Sleep 5 } }
 ```
+
+After 15+ minutes, no joy. `sudo reboot`, and the KVP service still failed. I logged in, tried it again, and now:
+
+```
+vagrant@vagrant:~$ systemctl status *hyper*
+● hyperv-daemons.hv-fcopy-daemon.service - Hyper-V file copy service (FCOPY) daemon
+   Loaded: loaded (/lib/systemd/system/hyperv-daemons.hv-fcopy-daemon.service; enabled)
+   Active: active (running) since Wed 2017-02-01 07:17:23 UTC; 1min 45s ago
+ Main PID: 556 (hv_fcopy_daemon)
+   CGroup: /system.slice/hyperv-daemons.hv-fcopy-daemon.service
+           └─556 /usr/sbin/hv_fcopy_daemon -n
+
+● hyperv-daemons.hv-vss-daemon.service - Hyper-V volume shadow copy service (VSS) daemon
+   Loaded: loaded (/lib/systemd/system/hyperv-daemons.hv-vss-daemon.service; enabled)
+   Active: active (running) since Wed 2017-02-01 07:17:23 UTC; 1min 45s ago
+ Main PID: 559 (hv_vss_daemon)
+   CGroup: /system.slice/hyperv-daemons.hv-vss-daemon.service
+           └─559 /usr/sbin/hv_vss_daemon -n
+
+● hyperv-daemons.hv-kvp-daemon.service - Hyper-V key-value pair (KVP) daemon
+   Loaded: loaded (/lib/systemd/system/hyperv-daemons.hv-kvp-daemon.service; enabled)
+   Active: active (running) since Wed 2017-02-01 07:18:40 UTC; 29s ago
+ Main PID: 861 (hv_kvp_daemon)
+   CGroup: /system.slice/hyperv-daemons.hv-kvp-daemon.service
+           └─861 /usr/sbin/hv_kvp_daemon -n
+```
+
+Packer unwedged itself almost immediately
