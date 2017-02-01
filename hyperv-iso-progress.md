@@ -11,5 +11,5 @@ Work Needed
 2. Update to use kernel 4.8 and [hyperv-daemons from jessie-backports](https://packages.debian.org/jessie-backports/hyperv-daemons)
  - Add `deb http://http.debian.net/debian jessie-backports main` to `/etc/apt/sources.list`
  - `sudo apt-get install hyperv-daemons=4.*`
- - `sudo apt-get install linux-image-amd64=4.8* linux-base=4.3*`
+ - `sudo apt-get install linux-image-amd64=4.* linux-base=4.*`
 3. Revert the change to boot_command in debian.json, take the note out of readme.md
