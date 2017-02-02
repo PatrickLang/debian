@@ -146,3 +146,28 @@ vagrant@vagrant:~$ systemctl status *hyper*
 ```
 
 Packer unwedged itself almost immediately
+
+
+I tried building again but instead of starting the service, just keep rebooting to see if it ever comes up. Maybe this is a timing issue related to boot?
+
+
+```
+root@vagrant:/home/vagrant# systemctl status *kvp* -l
+● hyperv-daemons.hv-kvp-daemon.service - Hyper-V key-value pair (KVP) daemon
+   Loaded: loaded (/lib/systemd/system/hyperv-daemons.hv-kvp-daemon.service; enabled)
+   Active: failed (Result: exit-code) since Thu 2017-02-02 06:50:34 UTC; 2min 4s ago
+  Process: 555 ExecStart=/usr/sbin/hv_kvp_daemon -n (code=exited, status=1/FAILURE)
+ Main PID: 555 (code=exited, status=1/FAILURE)
+
+Feb 02 06:49:34 vagrant systemd[1]: Starting Hyper-V key-value pair (KVP) daemon...
+Feb 02 06:49:34 vagrant systemd[1]: Started Hyper-V key-value pair (KVP) daemon.
+Feb 02 06:49:34 vagrant KVP[555]: KVP starting; pid is:555
+Feb 02 06:49:34 vagrant KVP[555]: KVP LIC Version: 3.1
+Feb 02 06:50:34 vagrant KVP[555]: read failed; error:9 Bad file descriptor
+Feb 02 06:50:34 vagrant systemd[1]: hyperv-daemons.hv-kvp-daemon.service: main process exited, code=exited, status=1/FAILURE
+Feb 02 06:50:34 vagrant systemd[1]: Unit hyperv-daemons.hv-kvp-daemon.service entered failed state.
+```
+
+Repros 3/3 times
+
+**Do a VM power off & back on - works right away**
